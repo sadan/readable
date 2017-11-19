@@ -12,9 +12,7 @@ const fetchCategories = () => {
     return (
       fetch('http://localhost:3001/categories', {headers: defaultHeader})
       .then(res => res.json())
-      .then(data => {
-        dispatch(categoriesReceived(data.categories));
-      })
+      .then(data => dispatch(categoriesReceived(data.categories)))
       .catch(err => console.log(err))
     );
   };

@@ -12,7 +12,7 @@ class CategoriesList extends Component {
 
   render() {
     let categories = this.props.categories;
-    console.log(categories);
+    
     return (
       <div style={{
         padding: '15px 15px 10px',
