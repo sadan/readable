@@ -8,7 +8,7 @@ class Topbar extends Component {
         <Navbar>
           <Navbar.Header>
             <Navbar.Brand>
-              <a href="#">Readable</a>
+              <a href="/">Readable</a>
             </Navbar.Brand>
           </Navbar.Header>
         </Navbar>

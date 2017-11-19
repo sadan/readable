@@ -1,7 +1,17 @@
 import React, { Component } from 'react';
 import { Row, Col, Nav, NavItem, Panel, Button } from 'react-bootstrap';
+import { connect } from 'react-redux';
+
+import { fetchCategories } from './actions';
+import CategoriesList from './CategoriesList';
 
 class Home extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {};
+  }
+
   render() {
     return (
       <div>
@@ -30,22 +40,7 @@ class Home extends Component {
             <Button bsSize="large" bsStyle="success" block style={{ marginBottom: '20px'}}>
               Add Post
             </Button>
-            <div style={{
-              padding: '15px 15px 10px',
-              backgroundColor: '#fff8dc',
-              border: '1px solid #e0dcbf',
-              fontSize: '13px', lineHeight: 1.3
-            }}>
-              <div style={{ 
-                fontWeight: 'bold',
-                fontSize: '11px',
-                color: '#9c988b',
-                textTransform: 'uppercase',
-                marginBottom: '10px',
-                lineHeight: 1.8,
-                borderBottom: '1px solid #e0dcbf'
-              }}>Categories</div>
-            </div>
+            <CategoriesList />
           </Col>
         </Row>
       </div>
@@ -53,4 +48,12 @@ class Home extends Component {
   }
 }
 
-export default Home;
+let mapStateToProps = state => ({
+  posts: state.posts
+});
+
+let mapDispatchToProps = {
+  fetchCategories
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
