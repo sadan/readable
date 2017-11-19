@@ -1,4 +1,4 @@
-import { initialState } from '../../initialState/initialState';
+import { initialState } from '../../../initialState/initialState';
 import { CATEGORIES_RECEIVED } from './constants';
 
 const categoriesReducer = (state = initialState.categories, action) => {

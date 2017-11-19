@@ -2,14 +2,17 @@ import React, { Component } from 'react';
 import { Row, Col, Nav, NavItem, Panel, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
-import { fetchCategories } from './actions';
-import CategoriesList from './CategoriesList';
+import CategoriesList from './CategoriesList/CategoriesList';
 
 class Home extends Component {
   constructor(props) {
     super(props);
 
     this.state = {};
+  }
+
+  componentDidMount() {
+
   }
 
   render() {
@@ -52,8 +55,6 @@ let mapStateToProps = state => ({
   posts: state.posts
 });
 
-let mapDispatchToProps = {
-  fetchCategories
-};
+let mapDispatchToProps = {};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
