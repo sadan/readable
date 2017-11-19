@@ -8,16 +8,23 @@ import { fetchPosts } from './actions';
 class Home extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {};
-
-    this.convertDate = this.convertDate.bind(this);
+    this.state = {
+      category: null
+    };
   }
 
   componentDidMount() {
     const { fetchPosts } = this.props;
 
     fetchPosts();
+  }
+
+  componentWillReceiveProps(props) {
+    let { category } = props.match.params;
+    
+    this.setState({
+      category
+    });
   }
 
   convertDate(timestamp) {
@@ -31,7 +38,8 @@ class Home extends Component {
   }
 
   render() {
-    let posts = this.props.posts;
+    let { category } = this.state;
+    let posts = !category ? this.props.posts : this.props.posts.filter((post) => post.category === category);
 
     return (
       <div>

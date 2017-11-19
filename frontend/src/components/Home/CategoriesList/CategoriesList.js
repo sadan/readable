@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { fetchCategories } from './actions';
 
@@ -32,7 +33,11 @@ class CategoriesList extends Component {
         <ul style={{
           paddingLeft: '15px', textTransform: 'capitalize'}}>
           {categories.length
-            ? categories.map((category, i) => <li key={i}>{category.name}</li>)
+            ? categories.map((category, i) => (
+              <Link key={i} to={`/posts/category/${category.path}`}>
+                <li>{category.name}</li>
+              </Link>
+            ))
             : null}
         </ul>
       </div>

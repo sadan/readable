@@ -15,7 +15,12 @@ class App extends Component {
         <Grid>
           <Switch>
             <Route 
-              path=''
+              path='/'
+              exact
+              component={Home}
+            />
+            <Route 
+              path='/posts/category/:category'
               component={Home}
             />
           </Switch>

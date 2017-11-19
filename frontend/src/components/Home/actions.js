@@ -9,8 +9,10 @@ const postsReceived = posts => ({
 
 const fetchPosts = () => {
   return dispatch => {
+    let url = 'http://localhost:3001/posts';
+    
     return (
-      fetch('http://localhost:3001/posts', {headers: defaultHeader})
+      fetch(url, {headers: defaultHeader})
       .then(res => res.json())
       .then(data => dispatch(postsReceived(data)))
       .catch(err => console.log(err))
@@ -18,4 +20,4 @@ const fetchPosts = () => {
   };
 };
 
-export { fetchPosts }
+export { fetchPosts };
