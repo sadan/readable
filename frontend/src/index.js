@@ -9,7 +9,6 @@ import { store } from './store/store';
 import registerServiceWorker from './registerServiceWorker';
 
 import './assets/css/index.css';
-import './assets/css/App.css';
 
 ReactDOM.render(
   <BrowserRouter>

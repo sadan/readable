@@ -15,23 +15,9 @@ class CategoriesList extends Component {
     let categories = this.props.categories;
     
     return (
-      <div style={{
-        padding: '15px 15px 10px',
-        backgroundColor: '#fff8dc',
-        border: '1px solid #e0dcbf',
-        fontSize: '13px', lineHeight: 1.3
-      }}>
-        <div style={{ 
-          fontWeight: 'bold',
-          fontSize: '11px',
-          color: '#9c988b',
-          textTransform: 'uppercase',
-          marginBottom: '10px',
-          lineHeight: 1.8,
-          borderBottom: '1px solid #e0dcbf'
-        }}>Categories</div>
-        <ul style={{
-          paddingLeft: '15px', textTransform: 'capitalize'}}>
+      <div className='categories-box'>
+        <div className='categories-box-title'>Categories</div>
+        <ul className='categories-list'>
           {categories.length
             ? categories.map((category, i) => (
               <Link key={i} to={`/posts/category/${category.path}`}>

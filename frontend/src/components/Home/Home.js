@@ -43,7 +43,6 @@ class Home extends Component {
   }
 
   sortHandler(key) {
-    console.log(key)
     let sort = key === 'date' ? true : false;
     this.setState({ sort });
   }
@@ -64,7 +63,7 @@ class Home extends Component {
     return (
       <Row>
         <Col md={8}>
-          <div style={{marginBottom: '20px'}}>
+          <div className='sort-tabs'>
             <Nav bsStyle="tabs" onSelect={this.sortHandler}>
               <NavItem active={sort} eventKey='date'>All</NavItem>
               <NavItem active={!sort} eventKey='score'>Top scorer</NavItem>
@@ -77,20 +76,15 @@ class Home extends Component {
                   footer={
                     <div>
                       <span>Votes: {post.voteScore}</span>
-                      <div style={{float: 'right', color: '#999999'}}>
+                      <div className='post-footer'>
                         <span>
                           <strong>created at</strong> {this.convertDate(post.timestamp)} <strong>by</strong> {post.author}
                         </span>
                       </div>
                     </div>
                   }>
-                    <p style={{fontSize: '16px'}}>{post.title}</p>
-                  <span style={{
-                    padding: '3px 5px', 
-                    backgroundColor: '#5fba7d',
-                    display: 'table',
-                    color: '#fff'
-                  }}>
+                    <p className='post-title'>{post.title}</p>
+                  <span className='post-category'>
                     {post.category}
                   </span>
                 </Panel>
@@ -100,7 +94,10 @@ class Home extends Component {
           </div>
         </Col>
         <Col md={4}>
-          <Button bsSize="large" bsStyle="success" block style={{ marginBottom: '20px'}}>
+          <Button className='add-post-btn' 
+            bsSize="large" 
+            bsStyle="success" 
+            block>
             Add Post
           </Button>
           <CategoriesList />
