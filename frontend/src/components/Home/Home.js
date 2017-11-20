@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Row, Col, Nav, NavItem, Panel, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import CategoriesList from './CategoriesList/CategoriesList';
 import { fetchPosts } from './actions';
@@ -82,8 +83,12 @@ class Home extends Component {
                         </span>
                       </div>
                     </div>
-                  }>
-                    <p className='post-title'>{post.title}</p>
+                }>
+                  <h3 className='post-title'>
+                    <Link  to={`/posts/detail/${post.id}`}>
+                      {post.title}
+                    </Link>
+                  </h3>
                   <span className='post-category'>
                     {post.category}
                   </span>
@@ -100,7 +105,9 @@ class Home extends Component {
             block>
             Add Post
           </Button>
+
           <CategoriesList />
+
         </Col>
       </Row>
     );
