@@ -1,10 +1,15 @@
-import { POSTS_RECEIVED } from './constants';
+import { POSTS_RECEIVED, SET_SELECTED_POST } from './constants';
 
 const defaultHeader = {Authorization: 'boohoo43'};
 
 const postsReceived = posts => ({
   type: POSTS_RECEIVED,
   posts
+});
+
+const setSelectedPost = postId => ({
+  type: SET_SELECTED_POST,
+  postId
 });
 
 const fetchPosts = () => {
@@ -20,4 +25,4 @@ const fetchPosts = () => {
   };
 };
 
-export { fetchPosts };
+export { fetchPosts, setSelectedPost };
