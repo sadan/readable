@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import CategoriesList from './CategoriesList/CategoriesList';
 import { fetchPosts, setSelectedPost } from './actions';
-import { convertDate } from '../utils';
+import { convertDate, sortByDate, sortByScore } from '../utils';
 
 class Home extends Component {
   constructor(props) {
@@ -16,8 +16,6 @@ class Home extends Component {
     };
 
     this.sortHandler = this.sortHandler.bind(this);
-    this.sortByDate = this.sortByDate.bind(this);
-    this.sortByScore = this.sortByScore.bind(this);
   }
 
   componentDidMount() {
@@ -38,14 +36,6 @@ class Home extends Component {
     let sort = key === 'date' ? true : false;
     this.setState({ sort });
   }
-  
-  sortByDate(a, b) {
-    return (new Date(b.timestamp) - new Date(a.timestamp));
-  }
-
-  sortByScore(a, b) {
-    return b.voteScore - a.voteScore;
-  }
 
   render() {
     let { category, sort } = this.state;
@@ -53,7 +43,7 @@ class Home extends Component {
 
     let posts = !category ? this.props.posts : this.props.posts.filter((post) => post.category === category);
 
-    sort ? posts.sort(this.sortByDate) : posts.sort(this.sortByScore);
+    sort ? posts.sort(sortByDate) : posts.sort(sortByScore);
 
     return (
       <Row>
