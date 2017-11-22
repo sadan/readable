@@ -41,9 +41,9 @@ class PostDetail extends Component {
                   <Media>
                     <Media.Left style={{width: '8%'}}>
                       <div style={{display: 'inline-grid'}}>
-                        <Glyphicon style={{fontSize: '26px', marginLeft: '1px'}} glyph='chevron-up' />
+                        <Glyphicon style={{fontSize: '26px', margin: 'auto'}} glyph='chevron-up' />
                         <span style={{margin: '5px auto', fontSize: '20px'}}>{post.voteScore}</span>
-                        <Glyphicon style={{fontSize: '26px', marginLeft: '1px'}} glyph='chevron-down' />
+                        <Glyphicon style={{fontSize: '26px', margin: 'auto'}} glyph='chevron-down' />
                       </div>
                     </Media.Left>
                     <Media.Body>
@@ -77,8 +77,19 @@ class PostDetail extends Component {
                 <div style={{
                   borderBottom: '1px solid #e4e6e8'
                 }}>
-                  <p style={{margin: '10px 0 15px'}}>
-                    {comment.body} - <span style={{color: '#a0a0a0'}}>by {comment.author} at {convertDate(comment.timestamp)}</span></p>
+                  <Media style={{margin: '10px 0 15px'}}>
+                    <Media.Left style={{width: '3%'}}>
+                      <div style={{display: 'inline-grid'}}>
+                        <span style={{margin: '0 auto 2px'}}>{post.voteScore}</span>
+                        <Glyphicon style={{margin: '0 auto'}} glyph='chevron-up' />
+                        <Glyphicon style={{margin: '0 auto'}} glyph='chevron-down' />
+                      </div>
+                    </Media.Left>
+                    <Media.Body>
+                      <p>{comment.body}</p>
+                      <span style={{color: '#a0a0a0'}}>By {comment.author} at {convertDate(comment.timestamp)}</span>
+                    </Media.Body>
+                  </Media>
                 </div>
               </Col>
             </Row>)
