@@ -53,3 +53,42 @@
   padding-left: 15px;
   text-transform: capitalize
 }
+
+/* Post detail */
+.divider {
+  border-bottom: 1px solid #e4e6e8;
+  margin-bottom: 15px;
+}
+
+.vote-icon {
+  font-size: 26px;
+  margin: auto;
+}
+
+.vote-score {
+  margin: 5px auto;
+  font-size: 20px;
+}
+
+.post-detail-heading {
+  color: #a0a0a0;
+  display: inline-block;
+  width: 30%;
+  font-weight: 2
+}
+
+.comment-media {
+  margin: 10px 0 15px !important;
+}
+
+.comment-media .media-left {
+  width: 3%;
+}
+
+.comment-vote-score {
+  margin: 0 auto 2px;
+}
+
+.comment-vote-icon {
+  margin: 0 auto;
+}

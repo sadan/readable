@@ -22,10 +22,7 @@ class PostDetail extends Component {
       <div>
         <Row >
           <Col md={12}>
-            <div style={{
-              borderBottom: '1px solid #e4e6e8',
-              marginBottom: '15px'
-            }}>
+            <div className='divider'>
               <h3>{post.title}</h3>
             </div>
           </Col>
@@ -37,13 +34,13 @@ class PostDetail extends Component {
             }}>
               <Row style={{marginBottom: '15px'}}>
                 <Clearfix />
-                <Col md={9}>
+                <Col md={9} className='post'>
                   <Media>
                     <Media.Left style={{width: '8%'}}>
                       <div style={{display: 'inline-grid'}}>
-                        <Glyphicon style={{fontSize: '26px', margin: 'auto'}} glyph='chevron-up' />
-                        <span style={{margin: '5px auto', fontSize: '20px'}}>{post.voteScore}</span>
-                        <Glyphicon style={{fontSize: '26px', margin: 'auto'}} glyph='chevron-down' />
+                        <Glyphicon className='vote-icon' glyph='chevron-up' />
+                        <span className='vote-score'>{post.voteScore}</span>
+                        <Glyphicon className='vote-icon' glyph='chevron-down' />
                       </div>
                     </Media.Left>
                     <Media.Body>
@@ -52,16 +49,8 @@ class PostDetail extends Component {
                   </Media>
                 </Col>
                 <Col md={3}>
-                  <p><span style={{
-                    color: '#a0a0a0', 
-                    width: '30%', 
-                    display: 'inline-block'
-                  }}>Posted by</span> {post.author}</p>
-                  <p><span style={{
-                    color: '#a0a0a0', 
-                    width: '30%', 
-                    display: 'inline-block'
-                  }}>Posted at</span> {convertDate(post.timestamp)}</p>
+                  <p><span className='post-detail-heading'>Posted by</span> {post.author}</p>
+                  <p><span className='post-detail-heading'>Posted at</span> {convertDate(post.timestamp)}</p>
                   <span className='post-category'>
                     {post.category}
                   </span>
@@ -77,12 +66,12 @@ class PostDetail extends Component {
                 <div style={{
                   borderBottom: '1px solid #e4e6e8'
                 }}>
-                  <Media style={{margin: '10px 0 15px'}}>
-                    <Media.Left style={{width: '3%'}}>
+                  <Media className='comment-media'>
+                    <Media.Left>
                       <div style={{display: 'inline-grid'}}>
-                        <span style={{margin: '0 auto 2px'}}>{post.voteScore}</span>
-                        <Glyphicon style={{margin: '0 auto'}} glyph='chevron-up' />
-                        <Glyphicon style={{margin: '0 auto'}} glyph='chevron-down' />
+                        <span className='comment-vote-score'>{post.voteScore}</span>
+                        <Glyphicon className='comment-vote-icon' glyph='chevron-up' />
+                        <Glyphicon className='comment-vote-icon' glyph='chevron-down' />
                       </div>
                     </Media.Left>
                     <Media.Body>
