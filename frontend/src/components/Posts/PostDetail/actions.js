@@ -1,29 +1,43 @@
-import { POST_DETAIL_RECEIVED, POST_COMMENTS_RECEIVED } from './constants';
+import { 
+  POST_DETAIL_RECEIVED,
+  POST_VOTE_SUCCESS
+ } from './constants';
 
-const defaultHeader = {Authorization: 'boohoo43'};
+const defaultHeader = new Headers();
+defaultHeader.append('Authorization', 'boohoo43');
+defaultHeader.append('Content-Type', 'application/json');
+defaultHeader.append('Accept', 'application/json');
 
-const postDetailSuccess = post => ({
+const fetchPostDetailSuccess = post => ({
   type: POST_DETAIL_RECEIVED,
   post
 });
 
-const postCommentsSuccess = comments => ({
-  type: POST_COMMENTS_RECEIVED,
-  comments
+const postVoteSuccess = score => ({
+  type: POST_VOTE_SUCCESS,
+  score
 });
 
-const fetchPostComments = (postId) => {
+const postVote = (postId, vote) => {
   return dispatch => {
-    let url = `http://localhost:3001/posts/${postId}/comments`;
+    let url = `http://localhost:3001/posts/${postId}/`;
+    
+    let requestData = {
+      method: 'POST',
+      headers: defaultHeader,
+      body: JSON.stringify({option: vote})
+    }
 
-    return(
-      fetch(url, {headers: defaultHeader})
+    let request = new Request(url, requestData);
+
+    return (
+      fetch(request)
       .then(res => res.json())
-      .then(data => dispatch(postCommentsSuccess(data)))
+      .then(data => dispatch(postVoteSuccess(data.voteScore)))
       .catch(err => console.log(err))
-    )
-  }
-}
+    );
+  };
+};
 
 const fetchPostDetail = (postId) => {
   return dispatch => {
@@ -33,12 +47,11 @@ const fetchPostDetail = (postId) => {
       fetch(url, {headers: defaultHeader})
       .then(res => res.json())
       .then(data => {
-        dispatch(postDetailSuccess(data));
-        dispatch(fetchPostComments(postId));
+        dispatch(fetchPostDetailSuccess(data));
       })
       .catch(err => console.log(err))
     );
   };
 };
 
-export { fetchPostDetail };
+export { fetchPostDetail, postVote };

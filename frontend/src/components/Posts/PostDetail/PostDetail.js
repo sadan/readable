@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { Row, Col, Clearfix, Media, Glyphicon } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
-import { fetchPostDetail } from './actions';
-import { convertDate, sortByScore } from '../../utils';
+import { fetchPostDetail, postVote } from './actions';
+import { convertDate } from '../../utils';
+import Comment from '../Comment/Comment';
+import isEmpty from 'lodash/isEmpty';
 
 class PostDetail extends Component {
   componentDidMount() {
@@ -14,9 +16,16 @@ class PostDetail extends Component {
     fetchPostDetail(postId);
   }
 
+  voteHandler(postId, e) {
+    let { postVote } = this.props;
+
+    postVote(postId, e.target.id);
+  }
+
   render() {
-    let {post, comments} = this.props;
-    comments = comments.length ? comments.sort(sortByScore) : null;
+    let {post} = this.props;
+
+    if (isEmpty(post)) return null;
 
     return (
       <div>
@@ -38,10 +47,16 @@ class PostDetail extends Component {
                   <Media>
                     <Media.Left style={{width: '8%'}}>
                       <div style={{display: 'inline-grid'}}>
-                        <Glyphicon className='vote-icon' glyph='chevron-up' />
+                        <Glyphicon glyph='chevron-up'
+                          className='vote-icon'
+                          id='upVote'
+                          onClick={e => this.voteHandler(post.id, e)} />
                         <span className='vote-score'>{post.voteScore}</span>
-                        <Glyphicon className='vote-icon' glyph='chevron-down' />
-                      </div>
+                        <Glyphicon glyph='chevron-down'
+                          className='vote-icon' 
+                          id='downVote'
+                          onClick={e => this.voteHandler(post.id, e)}/>
+                        </div>
                     </Media.Left>
                     <Media.Body>
                       <p>{post.body}</p>
@@ -59,30 +74,7 @@ class PostDetail extends Component {
             </div>
           </Col>
         </Row>
-        {comments 
-          ? comments.map((comment) => 
-            <Row key={comment.id}>
-              <Col md={12}>
-                <div style={{
-                  borderBottom: '1px solid #e4e6e8'
-                }}>
-                  <Media className='comment-media'>
-                    <Media.Left>
-                      <div style={{display: 'inline-grid'}}>
-                        <span className='comment-vote-score'>{post.voteScore}</span>
-                        <Glyphicon className='comment-vote-icon' glyph='chevron-up' />
-                        <Glyphicon className='comment-vote-icon' glyph='chevron-down' />
-                      </div>
-                    </Media.Left>
-                    <Media.Body>
-                      <p>{comment.body}</p>
-                      <span style={{color: '#a0a0a0'}}>By {comment.author} at {convertDate(comment.timestamp)}</span>
-                    </Media.Body>
-                  </Media>
-                </div>
-              </Col>
-            </Row>)
-          : null}
+        <Comment postId={post.id} />
       </div>
     );
   }
@@ -90,12 +82,12 @@ class PostDetail extends Component {
 
 const mapStateToProps = state => ({
   postId: state.posts.selectedPostId,
-  post: state.postDetail.detail,
-  comments: state.postDetail.comments
+  post: state.postDetail
 });
 
 const mapDispatchToProps = {
-  fetchPostDetail
+  fetchPostDetail,
+  postVote
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostDetail);

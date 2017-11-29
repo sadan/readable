@@ -6,8 +6,6 @@ export const initialState = {
     list: [],
     selectedPostId: null
   },
-  postDetail: {
-    detail: {},
-    comments: []
-  }
+  postDetail: {},
+  postComments: []
 };

@@ -63,6 +63,11 @@
 .vote-icon {
   font-size: 26px;
   margin: auto;
+  cursor: pointer;
+}
+
+.vote-icon:hover {
+  color: #37b837;
 }
 
 .vote-score {
@@ -91,4 +96,9 @@
 
 .comment-vote-icon {
   margin: 0 auto;
+  cursor: pointer;
+}
+
+.comment-vote-icon:hover {
+  color: #37b837
 }
