@@ -2,5 +2,10 @@ export const initialState = {
   categories: {
     list: []
   },
-  posts: []
+  posts: {
+    list: [],
+    selectedPostId: null
+  },
+  postDetail: {},
+  postComments: []
 };

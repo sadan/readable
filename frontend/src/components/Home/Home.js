@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Row, Col, Nav, NavItem, Panel, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import CategoriesList from './CategoriesList/CategoriesList';
-import { fetchPosts } from './actions';
+import { fetchPosts, setSelectedPost } from './actions';
+import { convertDate, sortByDate, sortByScore } from '../utils';
 
 class Home extends Component {
   constructor(props) {
@@ -15,8 +16,6 @@ class Home extends Component {
     };
 
     this.sortHandler = this.sortHandler.bind(this);
-    this.sortByDate = this.sortByDate.bind(this);
-    this.sortByScore = this.sortByScore.bind(this);
   }
 
   componentDidMount() {
@@ -33,34 +32,19 @@ class Home extends Component {
     });
   }
 
-  convertDate(timestamp) {
-    let options = {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric'
-    };
-    return new Date(timestamp).toLocaleDateString("en-US", options);
-  }
-
   sortHandler(key) {
     let sort = key === 'date' ? true : false;
     this.setState({ sort });
   }
-  
-  sortByDate(a, b) {
-    return (new Date(b.timestamp) - new Date(a.timestamp));
-  }
-
-  sortByScore(a, b) {
-    return b.voteScore - a.voteScore;
-  }
 
   render() {
     let { category, sort } = this.state;
+    let { setSelected } = this.props;
+
     let posts = !category ? this.props.posts : this.props.posts.filter((post) => post.category === category);
 
-    sort ? posts.sort(this.sortByDate) : posts.sort(this.sortByScore)
+    sort ? posts.sort(sortByDate) : posts.sort(sortByScore);
+
     return (
       <Row>
         <Col md={8}>
@@ -79,13 +63,15 @@ class Home extends Component {
                       <span>Votes: {post.voteScore}</span>
                       <div className='post-footer'>
                         <span>
-                          <strong>created at</strong> {this.convertDate(post.timestamp)} <strong>by</strong> {post.author}
+                          <strong>created at</strong> {convertDate(post.timestamp)} <strong>by</strong> {post.author}
                         </span>
                       </div>
                     </div>
                 }>
                   <h3 className='post-title'>
-                    <Link  to={`/posts/detail/${post.id}`}>
+                    <Link 
+                      onClick={() => setSelected(post.id)}
+                      to={`/posts/detail/${post.id}`}>
                       {post.title}
                     </Link>
                   </h3>
@@ -99,12 +85,16 @@ class Home extends Component {
           </div>
         </Col>
         <Col md={4}>
-          <Button className='add-post-btn' 
-            bsSize="large" 
-            bsStyle="success" 
-            block>
-            Add Post
-          </Button>
+          <Link style={{textDecoration: 'none', color: 'white'}}
+            to='/posts/create'>
+            <Button className='add-post-btn' 
+              bsSize="large" 
+              bsStyle="success" 
+              block
+            >
+              Create Post
+            </Button>
+          </Link>
 
           <CategoriesList />
 
@@ -115,11 +105,12 @@ class Home extends Component {
 }
 
 let mapStateToProps = state => ({
-  posts: state.posts
+  posts: state.posts.list
 });
 
-let mapDispatchToProps = {
-  fetchPosts
-};
+let mapDispatchToProps = dispatch => ({
+  fetchPosts: () => dispatch(fetchPosts()), 
+  setSelected: (postId) => dispatch(setSelectedPost(postId))
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home));

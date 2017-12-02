@@ -1,10 +1,13 @@
 import { initialState } from '../../initialState/initialState';
-import { POSTS_RECEIVED } from './constants';
+import { POSTS_RECEIVED, SET_SELECTED_POST } from './constants';
 
 const postsReducer = (state = initialState.posts, action) => {
   switch(action.type) {
     case POSTS_RECEIVED:
-      return Object.assign([], state, action.posts);
+      return Object.assign([], state, {list: action.posts});
+
+    case SET_SELECTED_POST:
+      return Object.assign({}, state, {selectedPostId: action.postId});
     
     default:
       return state;
