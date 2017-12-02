@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Row, Col, Nav, NavItem, Panel, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import CategoriesList from './CategoriesList/CategoriesList';
 import { fetchPosts, setSelectedPost } from './actions';
@@ -85,12 +85,16 @@ class Home extends Component {
           </div>
         </Col>
         <Col md={4}>
-          <Button className='add-post-btn' 
-            bsSize="large" 
-            bsStyle="success" 
-            block>
-            Add Post
-          </Button>
+          <Link style={{textDecoration: 'none', color: 'white'}}
+            to='/posts/create'>
+            <Button className='add-post-btn' 
+              bsSize="large" 
+              bsStyle="success" 
+              block
+            >
+              Create Post
+            </Button>
+          </Link>
 
           <CategoriesList />
 
@@ -109,4 +113,4 @@ let mapDispatchToProps = dispatch => ({
   setSelected: (postId) => dispatch(setSelectedPost(postId))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home));

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router';
-import { Route } from 'react-router-dom';
+// import { withRouter } from 'react-router';
+import { Route, withRouter } from 'react-router-dom';
 
-import PostDetail from './PostDetail/PostDetail';
+import PostDetail from './Detail/Detail';
 import Home from '../Home/Home';
+import CreatePost from './Create/Create';
 
 class Posts extends Component {
   render() {
@@ -11,6 +12,10 @@ class Posts extends Component {
 
     return (
       <div>
+        <Route 
+          path={match.url + '/create'}
+          component={CreatePost}
+        />
         <Route
           path={match.url + '/detail/:id'}
           component={PostDetail}

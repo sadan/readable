@@ -1,8 +1,6 @@
 import { initialState } from '../../../initialState/initialState';
 import { POST_COMMENTS_RECEIVED, COMMENT_VOTE_SUCCESS } from './constants';
 
-import { store } from '../../../store/store';
-
 const postCommentsReducer = (state = initialState.postComments, action) => {
   switch(action.type) {
     case POST_COMMENTS_RECEIVED:
