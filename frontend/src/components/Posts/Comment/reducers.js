@@ -1,5 +1,5 @@
 import { initialState } from '../../../initialState/initialState';
-import { POST_COMMENTS_RECEIVED, COMMENT_VOTE_SUCCESS, CREATE_COMMENT_SUCCESS, UPDATE_COMMENT_SUCCESS } from './constants';
+import { POST_COMMENTS_RECEIVED, DELETE_COMMENT_SUCCESS, CREATE_COMMENT_SUCCESS, UPDATE_COMMENT_SUCCESS } from './constants';
 
 const postCommentsReducer = (state = initialState.postComments, action) => {
   switch(action.type) {
@@ -22,13 +22,16 @@ const postCommentsReducer = (state = initialState.postComments, action) => {
                 comment,
                 action.comment.id === comment.id ? action.comment : comment
               )
-            )
+            );
           })
         )
-      )
+      );
     
     case CREATE_COMMENT_SUCCESS:
-      return Object.assign([], state, state.concat(action.comment))
+      return Object.assign([], state, state.concat(action.comment));
+
+    case DELETE_COMMENT_SUCCESS:
+      return state.filter((comment) => comment.id !== action.comment.id);
 
     default:
       return state;
