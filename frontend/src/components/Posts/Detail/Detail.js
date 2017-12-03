@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { fetchPostDetail, postVote } from './actions';
 import { convertDate } from '../../utils';
 import Comment from '../Comment/Comment';
+import CreateComment from '../Comment/Create/Create';
 import isEmpty from 'lodash/isEmpty';
 
 class PostDetail extends Component {
@@ -75,6 +76,7 @@ class PostDetail extends Component {
           </Col>
         </Row>
         <Comment postId={post.id} />
+        <CreateComment postId={post.id} />
       </div>
     );
   }

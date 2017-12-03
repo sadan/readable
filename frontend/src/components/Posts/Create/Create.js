@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import {Redirect} from 'react-router-dom';
 
 import { fetchCategories } from '../../Home/CategoriesList/actions';
-import { createPost } from './utils';
+import { createPost } from './actions';
 
 class CreatePost extends Component {
   constructor(props) {

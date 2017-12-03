@@ -1,5 +1,5 @@
 import { initialState } from '../../../initialState/initialState';
-import { POST_COMMENTS_RECEIVED, COMMENT_VOTE_SUCCESS } from './constants';
+import { POST_COMMENTS_RECEIVED, COMMENT_VOTE_SUCCESS, CREATE_COMMENT_SUCCESS } from './constants';
 
 const postCommentsReducer = (state = initialState.postComments, action) => {
   switch(action.type) {
@@ -31,6 +31,9 @@ const postCommentsReducer = (state = initialState.postComments, action) => {
           })
         )
       )
+    
+    case CREATE_COMMENT_SUCCESS:
+      return Object.assign([], state, state.concat(action.comment))
 
     default:
       return state;
