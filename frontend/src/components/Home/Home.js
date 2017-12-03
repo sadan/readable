@@ -67,7 +67,8 @@ class Home extends Component {
                         </span>
                       </div>
                     </div>
-                }>
+                  }
+                >
                   <h3 className='post-title'>
                     <Link 
                       onClick={() => setSelected(post.id)}

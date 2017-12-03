@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Row, Col, Clearfix, Media, Glyphicon } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { fetchPostDetail, postVote } from './actions';
 import { convertDate } from '../../utils';
-import Comment from '../Comment/Comment';
+import CommentsList from '../Comment/List/CommentsList';
+import CreateComment from '../Comment/Create/Create';
 import isEmpty from 'lodash/isEmpty';
 
 class PostDetail extends Component {
@@ -66,15 +68,20 @@ class PostDetail extends Component {
                 <Col md={3}>
                   <p><span className='post-detail-heading'>Posted by</span> {post.author}</p>
                   <p><span className='post-detail-heading'>Posted at</span> {convertDate(post.timestamp)}</p>
-                  <span className='post-category'>
+                  <span style={{marginBottom: '10px'}} className='post-category'>
                     {post.category}
                   </span>
+                  <Link to={{
+                    pathname: '/posts/create',
+                    state: { post: post }
+                  }} className='edit-btn'>Edit</Link>
                 </Col>
               </Row>
             </div>
           </Col>
         </Row>
-        <Comment postId={post.id} />
+        <CommentsList postId={post.id} />
+        <CreateComment postId={post.id} />
       </div>
     );
   }
