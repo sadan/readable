@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { fetchPostDetail, postVote } from './actions';
 import { convertDate } from '../../utils';
-import Comment from '../Comment/Comment';
+import CommentsList from '../Comment/List/CommentsList';
 import CreateComment from '../Comment/Create/Create';
 import isEmpty from 'lodash/isEmpty';
 
@@ -80,7 +80,7 @@ class PostDetail extends Component {
             </div>
           </Col>
         </Row>
-        <Comment postId={post.id} />
+        <CommentsList postId={post.id} />
         <CreateComment postId={post.id} />
       </div>
     );

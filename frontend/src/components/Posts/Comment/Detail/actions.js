@@ -1,35 +1,16 @@
 import {
-  POST_COMMENTS_RECEIVED,
-  COMMENT_VOTE_SUCCESS
-} from './constants';
+  COMMENT_VOTE_SUCCESS, UPDATE_COMMENT_SUCCESS
+} from '../constants';
 
 const defaultHeader = new Headers();
 defaultHeader.append('Authorization', 'boohoo43');
 defaultHeader.append('Content-Type', 'application/json');
 defaultHeader.append('Accept', 'application/json');
 
-const fetchPostCommentsSuccess = comments => ({
-  type: POST_COMMENTS_RECEIVED,
-  comments
-});
-
 const commentVoteSuccess = comment => ({
-  type: COMMENT_VOTE_SUCCESS,
+  type: UPDATE_COMMENT_SUCCESS,
   comment
 });
-
-const fetchPostComments = (postId) => {
-  return dispatch => {
-    let url = `http://localhost:3001/posts/${postId}/comments`;
-
-    return(
-      fetch(url, {headers: defaultHeader})
-      .then(res => res.json())
-      .then(data => dispatch(fetchPostCommentsSuccess(data)))
-      .catch(err => console.log(err))
-    );
-  };
-};
 
 const commentVote = (commentId, vote) => {
   return dispatch => {
@@ -52,4 +33,4 @@ const commentVote = (commentId, vote) => {
   };
 };
 
-export { fetchPostComments, commentVote };
+export { commentVote };
