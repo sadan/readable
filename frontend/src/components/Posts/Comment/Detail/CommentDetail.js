@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { Row, Col, Media, Glyphicon } from 'react-bootstrap';
 import { convertDate } from '../../../utils';
 
-import { commentVote } from './actions';
+import { commentVote, deleteComment } from './actions';
 import { connect } from 'react-redux';
 import CreateComment from '../Create/Create';
-
 
 class CommentDetail extends Component {
   constructor(props) {
@@ -17,6 +16,7 @@ class CommentDetail extends Component {
 
     this.voteHandler = this.voteHandler.bind(this);
     this.editHandler = this.editHandler.bind(this);
+    this.deleteHandler = this.deleteHandler.bind(this);
   }
 
   voteHandler(commentId, e) {
@@ -27,6 +27,12 @@ class CommentDetail extends Component {
 
   editHandler() {
     this.setState({ edit: true });
+  }
+
+  deleteHandler(commentId) {
+    let { deleteComment } = this.props;
+
+    deleteComment(commentId);
   }
 
   render() {
@@ -59,8 +65,11 @@ class CommentDetail extends Component {
               </Media.Left>
               <Media.Body>
                 <p>{comment.body}</p>                  
-                <span onClick={this.editHandler} className='edit-btn'>Edit</span> 
-                <span style={{color: '#a0a0a0'}}> | By {comment.author} at {convertDate(comment.timestamp)}</span>
+                <span onClick={this.editHandler} className='edit-btn'>Edit</span>
+                <span style={{color: '#a0a0a0'}}> | </span>
+                <span onClick={() => this.deleteHandler(comment.id)} className='edit-btn'>Delete</span>
+                <span style={{color: '#a0a0a0'}}> | </span>
+                <span style={{color: '#a0a0a0'}}>By {comment.author} at {convertDate(comment.timestamp)}</span>
               </Media.Body>
             </Media>
           </div>
@@ -70,4 +79,4 @@ class CommentDetail extends Component {
   }
 }
 
-export default connect(null, {commentVote})(CommentDetail);
+export default connect(null, {commentVote, deleteComment})(CommentDetail);

@@ -1,4 +1,4 @@
-import { CREATE_COMMENT_SUCCESS, UPDATE_COMMENT_SUCCESS } from '../constants';
+import { UPDATE_COMMENT_SUCCESS, CREATE_COMMENT_SUCCESS } from '../constants';
 
 const defaultHeader = new Headers();
 defaultHeader.append('Authorization', 'boohoo43');
@@ -38,7 +38,9 @@ const createComment = (params, update) => {
     return (
       fetch(request)
         .then(res => res.json())
-        .then(data => dispatch(updateCommentSuccess(data)))
+        .then(data => {
+          update ? dispatch(updateCommentSuccess(data)) : dispatch(createCommentSuccess(data));
+        })
         .catch(err => console.log(err))
     );
   };

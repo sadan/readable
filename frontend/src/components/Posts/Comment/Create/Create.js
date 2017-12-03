@@ -43,13 +43,22 @@ class CreateComment extends Component {
   }
 
   submitHandler(e) {
-    let { createComment } = this.props;
+    let { createComment, postId } = this.props;
     e.preventDefault();
 
     let {comment, update} = this.state;
     createComment(comment, update);
 
-    this.setState({ displayForm: false })
+    this.setState({ 
+      displayForm: false, 
+      comment: {
+        id: uuidv1(),
+        timestamp: Date.now(),
+        body: '',
+        author: '',
+        parentId: postId
+      }
+    })
   }
 
   displayForm() {
