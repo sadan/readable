@@ -5,13 +5,23 @@ defaultHeader.append('Authorization', 'boohoo43');
 defaultHeader.append('Content-Type', 'application/json');
 defaultHeader.append('Accept', 'application/json');
 
-const createPost = params => {
+const createPost = (params, update) => {
   return dispatch => {
-    let url = 'http://localhost:3001/posts';
+    let url = !update ? 'http://localhost:3001/posts' : `http://localhost:3001/posts/${params.id}`;
+    let method = !update ? 'POST' : 'PUT';
+    let body = params;
+
+    if(update) {
+      body = {
+        title: params.title,
+        body: params.body
+      };
+    }
+
     let requestData = {
-      method: 'POST',
+      method: method,
       headers: defaultHeader,
-      body: JSON.stringify(params)
+      body: JSON.stringify(body)
     };
     let request = new Request(url, requestData);
 

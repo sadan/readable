@@ -4,6 +4,7 @@ import uuidv1 from 'uuid/v1';
 import AutoComplete from 'react-autocomplete';
 import { connect } from 'react-redux';
 import {Redirect} from 'react-router-dom';
+import isEmpty from 'lodash/isEmpty';
 
 import { fetchCategories } from '../../Home/CategoriesList/actions';
 import { createPost } from './actions';
@@ -21,7 +22,8 @@ class CreatePost extends Component {
         author: '',
         category: ''
       },
-      created: false
+      created: false,
+      update: false,
     };
 
     this.onValueChange = this.onValueChange.bind(this);
@@ -29,9 +31,12 @@ class CreatePost extends Component {
   }
 
   componentDidMount() {
-    const { fetchCategories, categories } = this.props;
+    const { fetchCategories, categories, location } = this.props;
 
     if (!categories.length) fetchCategories();
+    if (!isEmpty(location.state)) {
+      this.setState({ post: location.state.post, update: true })
+    }
   }
 
   onValueChange(e) {
@@ -45,11 +50,11 @@ class CreatePost extends Component {
 
   onSubmit(e) {
     let { createPost } = this.props;
-    let data = this.state.post;
+    let {post, update} = this.state;
 
     e.preventDefault();
 
-    createPost(data)
+    createPost(post, update)
       .then(created => {
         if(created) {
           this.setState({ created });
@@ -58,7 +63,7 @@ class CreatePost extends Component {
   }
 
   render() {
-    let {post, created} = this.state;
+    let {post, created, update} = this.state;
     let { categories } = this.props;
 
     if (created) return <Redirect to={`/posts/detail/${post.id}`} />;
@@ -98,39 +103,45 @@ class CreatePost extends Component {
                 Category
               </Col>
               <Col md={4} sm={12}>
-                <div className='category-ac'>
-                  <AutoComplete
-                    name='category'
-                    getItemValue={(i) => i.name}
-                    items={categories}
-                    renderItem={(i, isHighlighted) => 
-                      <div style={{ background: isHighlighted ? 'lightgray': 'white'}}>
-                        {i.name}
-                      </div>
-                    }
-                    value={post.category}
-                    onSelect={(v) => {
-                      this.setState({
-                        post: { 
-                          ...post,
-                          category: v 
-                        }
-                      })
-                    }}
-                  />
-                </div>
+                {!update
+                  ?
+                  <div className='category-ac'>
+                    <AutoComplete
+                      name='category'
+                      getItemValue={(i) => i.name}
+                      items={categories}
+                      renderItem={(i, isHighlighted) => 
+                        <div style={{ background: isHighlighted ? 'lightgray': 'white'}}>
+                          {i.name}
+                        </div>
+                      }
+                      value={post.category}
+                      onSelect={(v) => {
+                        this.setState({
+                          post: { 
+                            ...post,
+                            category: v 
+                          }
+                        })
+                      }}
+                    />
+                  </div>
+                  : <div className='text-muted' style={{paddingTop: '7px'}}>{post.category}</div>}
               </Col>
               <Col componentClass={ControlLabel} md={2} sm={12}>
                 Author
               </Col>
               <Col md={4} sm={12}>
-                <FormControl
-                  type='input'
-                  name='author'
-                  value={post.author}
-                  onChange={this.onValueChange}
-                  placeholder='Enter your name'
-                />
+                {!update 
+                  ?
+                  <FormControl
+                    type='input'
+                    name='author'
+                    value={post.author}
+                    onChange={this.onValueChange}
+                    placeholder='Enter your name'
+                  />
+                  : <div className='text-muted' style={{paddingTop: '7px'}}>{post.author}</div>}
               </Col>
             </FormGroup>
             <Button default type="submit" style={{float: 'right'}}>

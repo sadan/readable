@@ -82,6 +82,21 @@
   font-weight: 2
 }
 
+.edit-btn {
+  font-size: 14px;
+  color: #888888;
+  cursor: pointer;
+}
+
+.edit-btn a {
+  text-decoration: none!important;
+}
+
+.edit-btn:hover {
+  color: #1a1a1a;
+  text-decoration: none!important;
+}
+
 /* Comment */
 .comment-media {
   margin: 10px 0 15px !important;
@@ -105,6 +120,12 @@
 }
 
 /* Post create */
+.category-ac input .disable {
+  cursor: not-allowed;
+  background-color: #eeeeee;
+  opacity: 1;
+}
+
 .category-ac input{
   display: block;
   width: 100%;
