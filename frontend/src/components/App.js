@@ -6,6 +6,7 @@ import { Grid } from 'react-bootstrap';
 import Topbar from './common/Topbar';
 import Home from './Home/Home';
 import Posts from './Posts/Posts';
+import NotFound from '../components/common/NotFound';
 
 class App extends Component {
   render() {
@@ -23,6 +24,10 @@ class App extends Component {
             <Route
               path='/posts'
               component={Posts}
+            />
+            <Route
+              path='/404'
+              component={NotFound}
             />
           </Switch>
         </Grid>

@@ -3,6 +3,7 @@ import {
   POST_VOTE_SUCCESS,
   DELETE_POST_SUCCESS
  } from './constants';
+ import isEmpty from 'lodash/isEmpty';
 
 const defaultHeader = new Headers();
 defaultHeader.append('Authorization', 'boohoo43');
@@ -49,6 +50,12 @@ const fetchPostDetail = (postId) => {
       .then(res => res.json())
       .then(data => {
         dispatch(fetchPostDetailSuccess(data));
+
+        // check if post exists/deleted
+        if(isEmpty(data)) {
+          return false
+        } 
+        return true
       })
       .catch(err => console.log(err))
     );

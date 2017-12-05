@@ -17,7 +17,7 @@ class Posts extends Component {
           component={CreatePost}
         />
         <Route
-          path={match.url + '/detail/:id'}
+          path={match.url + '/:category/:id'}
           component={PostDetail}
         />
         <Route 

@@ -72,7 +72,7 @@ class Home extends Component {
                   <h3 className='post-title'>
                     <Link 
                       onClick={() => setSelected(post.id)}
-                      to={`/posts/detail/${post.id}`}>
+                      to={`/posts/${post.category}/${post.id}`}>
                       {post.title}
                     </Link>
                   </h3>

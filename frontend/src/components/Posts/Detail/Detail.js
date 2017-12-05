@@ -11,23 +11,38 @@ import isEmpty from 'lodash/isEmpty';
 import { Redirect } from 'react-router-dom';
 
 class PostDetail extends Component {
+<<<<<<< Updated upstream
+=======
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
   constructor(props) {
     super(props);
 
     this.state = {
+<<<<<<< Updated upstream
       deleted: false
+=======
+      deleted: false,
+      exists: true,
+>>>>>>> Stashed changes
     };
 
     this.voteHandler = this.voteHandler.bind(this);
     this.deleteHandler = this.deleteHandler.bind(this);
   }
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
   componentDidMount() {
     let { postId, fetchPostDetail } = this.props;
 
     postId = postId ? postId : this.props.match.params.id;
 
-    fetchPostDetail(postId);
+    fetchPostDetail(postId)
+      .then((exists) => this.setState(() => ({ exists })))
   }
 
   voteHandler(postId, e) {
@@ -45,12 +60,26 @@ class PostDetail extends Component {
 
   render() {
     let {post} = this.props;
+<<<<<<< Updated upstream
     let { deleted } = this.state;
     console.log(deleted);
 
     if(isEmpty(post)) return null; 
     if(deleted) return <Redirect to='/' />;
     
+=======
+<<<<<<< Updated upstream
+
+    if (isEmpty(post)) return null;
+
+=======
+    let { deleted, exists } = this.state;
+
+    if(!exists) return <Redirect to='/404' />; 
+    if(deleted) return <Redirect to='/' />;
+    
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
     return (
       <div>
         <Row >
