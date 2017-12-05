@@ -66,7 +66,7 @@ class CreatePost extends Component {
     let {post, created, update} = this.state;
     let { categories } = this.props;
 
-    if (created) return <Redirect to={`/posts/detail/${post.id}`} />;
+    if (created) return <Redirect to={`/posts/${post.category}/${post.id}`} />;
 
     return (
       <Row>

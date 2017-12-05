@@ -20,10 +20,6 @@ class Posts extends Component {
           path={match.url + '/:category/:id'}
           component={PostDetail}
         />
-        <Route 
-          path={match.url + '/category/:category'}
-          component={Home}
-        />
       </div>
     );
   }

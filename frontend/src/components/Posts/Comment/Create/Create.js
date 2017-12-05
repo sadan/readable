@@ -49,16 +49,17 @@ class CreateComment extends Component {
     let {comment, update} = this.state;
     createComment(comment, update);
 
-    this.setState({ 
-      displayForm: false, 
-      comment: {
+    if (!update) {
+      comment = {
         id: uuidv1(),
         timestamp: Date.now(),
         body: '',
         author: '',
         parentId: postId
       }
-    })
+    }
+
+    this.setState({ comment, displayForm: false})
   }
 
   displayForm() {

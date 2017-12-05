@@ -4,11 +4,10 @@ import {
   DELETE_POST_SUCCESS
  } from './constants';
  import isEmpty from 'lodash/isEmpty';
+ import {defaultHeaders} from '../../utils'
 
-const defaultHeader = new Headers();
-defaultHeader.append('Authorization', 'boohoo43');
-defaultHeader.append('Content-Type', 'application/json');
-defaultHeader.append('Accept', 'application/json');
+const headers = defaultHeaders()
+const BASE_URL = process.env.REACT_APP_BASE_URL
 
 const fetchPostDetailSuccess = post => ({
   type: POST_DETAIL_RECEIVED,
@@ -22,11 +21,11 @@ const postVoteSuccess = score => ({
 
 const postVote = (postId, vote) => {
   return dispatch => {
-    let url = `http://localhost:3001/posts/${postId}/`;
+    let url = `${BASE_URL}/posts/${postId}/`;
     
     let requestData = {
       method: 'POST',
-      headers: defaultHeader,
+      headers: headers,
       body: JSON.stringify({option: vote})
     }
 
@@ -43,10 +42,10 @@ const postVote = (postId, vote) => {
 
 const fetchPostDetail = (postId) => {
   return dispatch => {
-    let url = `http://localhost:3001/posts/${postId}`;
+    let url = `${BASE_URL}/posts/${postId}`;
 
     return (
-      fetch(url, {headers: defaultHeader})
+      fetch(url, {headers: headers})
       .then(res => res.json())
       .then(data => {
         dispatch(fetchPostDetailSuccess(data));
@@ -64,10 +63,10 @@ const fetchPostDetail = (postId) => {
 
 const deletePost = (postId) => {
   return dispatch => {
-    let url = `http://localhost:3001/posts/${postId}`;
+    let url = `${BASE_URL}/posts/${postId}`;
     let requestData = {
       method: 'DELETE',
-      headers: defaultHeader
+      headers: headers
     };
     let request = new Request(url, requestData);
 

@@ -1,11 +1,10 @@
 import {
   POST_COMMENTS_RECEIVED,
 } from '../constants';
+import {defaultHeaders} from '../../../utils'
 
-const defaultHeader = new Headers();
-defaultHeader.append('Authorization', 'boohoo43');
-defaultHeader.append('Content-Type', 'application/json');
-defaultHeader.append('Accept', 'application/json');
+const headers = defaultHeaders()
+const BASE_URL = process.env.REACT_APP_BASE_URL
 
 const fetchPostCommentsSuccess = comments => ({
   type: POST_COMMENTS_RECEIVED,
@@ -14,10 +13,10 @@ const fetchPostCommentsSuccess = comments => ({
 
 const fetchPostComments = (postId) => {
   return dispatch => {
-    let url = `http://localhost:3001/posts/${postId}/comments`;
+    let url = `${BASE_URL}/posts/${postId}/comments`;
 
     return(
-      fetch(url, {headers: defaultHeader})
+      fetch(url, {headers: headers})
         .then(res => res.json())
         .then(data => dispatch(fetchPostCommentsSuccess(data)))
         .catch(err => console.log(err))

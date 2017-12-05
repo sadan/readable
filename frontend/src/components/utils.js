@@ -14,3 +14,12 @@ export const sortByDate = (a, b) => {
 export const sortByScore = (a, b) => {
   return b.voteScore - a.voteScore;
 };
+
+export const defaultHeaders = () => {
+  let headers = new Headers()
+  headers.append('Authorization', process.env.REACT_APP_AUTHORIZATION);
+  headers.append('Content-Type', 'application/json');
+  headers.append('Accept', 'application/json');
+
+  return headers
+}

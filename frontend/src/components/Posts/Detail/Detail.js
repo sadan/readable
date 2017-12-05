@@ -17,6 +17,7 @@ class PostDetail extends Component {
     this.state = {
       deleted: false,
       exists: true,
+      postId: null
     };
 
     this.voteHandler = this.voteHandler.bind(this);
@@ -29,7 +30,7 @@ class PostDetail extends Component {
     postId = postId ? postId : this.props.match.params.id;
 
     fetchPostDetail(postId)
-      .then((exists) => this.setState(() => ({ exists })))
+      .then((exists) => this.setState(() => ({ exists, postId })))
   }
 
   voteHandler(postId, e) {
@@ -46,9 +47,10 @@ class PostDetail extends Component {
   }
 
   render() {
-    let {post} = this.props;
-    let { deleted, exists } = this.state;
+    let { post } = this.props;
+    let { deleted, exists, postId } = this.state;
 
+    if(!postId) return null
     if(!exists) return <Redirect to='/404' />; 
     if(deleted) return <Redirect to='/' />;
 

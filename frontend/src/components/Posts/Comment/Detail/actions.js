@@ -1,11 +1,10 @@
 import {
   UPDATE_COMMENT_SUCCESS, DELETE_COMMENT_SUCCESS
 } from '../constants';
+import {defaultHeaders} from '../../../utils'
 
-const defaultHeader = new Headers();
-defaultHeader.append('Authorization', 'boohoo43');
-defaultHeader.append('Content-Type', 'application/json');
-defaultHeader.append('Accept', 'application/json');
+const headers = defaultHeaders()
+const BASE_URL = process.env.REACT_APP_BASE_URL
 
 const commentVoteSuccess = comment => ({
   type: UPDATE_COMMENT_SUCCESS,
@@ -19,11 +18,11 @@ const deleteCommentSuccess = comment => ({
 
 const commentVote = (commentId, vote) => {
   return dispatch => {
-    let url = `http://localhost:3001/comments/${commentId}/`;
+    let url = `${BASE_URL}/comments/${commentId}/`;
     
     let requestData = {
       method: 'POST',
-      headers: defaultHeader,
+      headers: headers,
       body: JSON.stringify({option: vote})
     }
 
@@ -40,11 +39,11 @@ const commentVote = (commentId, vote) => {
 
 const deleteComment = (commentId) => {
   return dispatch => {
-    let url = `http://localhost:3001/comments/${commentId}/`;
+    let url = `${BASE_URL}/comments/${commentId}/`;
     
     let requestData = {
       method: 'DELETE',
-      headers: defaultHeader
+      headers: headers
     };
 
     let request = new Request(url, requestData);

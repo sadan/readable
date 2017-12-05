@@ -1,13 +1,12 @@
 import { setSelectedPost } from '../../Home/actions';
+import {defaultHeaders} from '../../utils'
 
-const defaultHeader = new Headers();
-defaultHeader.append('Authorization', 'boohoo43');
-defaultHeader.append('Content-Type', 'application/json');
-defaultHeader.append('Accept', 'application/json');
+const headers = defaultHeaders()
+const BASE_URL = process.env.REACT_APP_BASE_URL
 
 const createPost = (params, update) => {
   return dispatch => {
-    let url = !update ? 'http://localhost:3001/posts' : `http://localhost:3001/posts/${params.id}`;
+    let url = !update ? `${BASE_URL}/posts` : `${BASE_URL}/posts/${params.id}`;
     let method = !update ? 'POST' : 'PUT';
     let body = params;
 
@@ -20,19 +19,19 @@ const createPost = (params, update) => {
 
     let requestData = {
       method: method,
-      headers: defaultHeader,
+      headers: headers,
       body: JSON.stringify(body)
     };
     let request = new Request(url, requestData);
 
     return (
       fetch(request)
-      .then(res => res.json())
-      .then(data => {
-        dispatch(setSelectedPost(data.id));
-        return true;
-      })
-      .catch(err => console.log(err))
+        .then(res => res.json())
+        .then(data => {
+          dispatch(setSelectedPost(data.id));
+          return true;
+        })
+        .catch(err => console.log(err))
     );
   };
 };

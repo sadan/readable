@@ -22,6 +22,10 @@ class App extends Component {
               component={Home}
             />
             <Route
+              path='/category/:category'
+              component={Home}
+            />
+            <Route
               path='/posts'
               component={Posts}
             />

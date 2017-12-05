@@ -1,6 +1,7 @@
 import { CATEGORIES_RECEIVED } from './constants';
 
-const defaultHeader = {Authorization: 'boohoo43'};
+const defaultHeader = {Authorization: process.env.REACT_APP_AUTHORIZATION};
+const BASE_URL = process.env.REACT_APP_BASE_URL
 
 const categoriesReceived = categories => ({
   type: CATEGORIES_RECEIVED,
@@ -10,10 +11,10 @@ const categoriesReceived = categories => ({
 const fetchCategories = () => {
   return dispatch => {
     return (
-      fetch('http://localhost:3001/categories', {headers: defaultHeader})
-      .then(res => res.json())
-      .then(data => dispatch(categoriesReceived(data.categories)))
-      .catch(err => console.log(err))
+      fetch(`${BASE_URL}/categories`, {headers: defaultHeader})
+        .then(res => res.json())
+        .then(data => dispatch(categoriesReceived(data.categories)))
+        .catch(err => console.log(err))
     );
   };
 };

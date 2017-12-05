@@ -1,9 +1,8 @@
 import { UPDATE_COMMENT_SUCCESS, CREATE_COMMENT_SUCCESS } from '../constants';
+import {defaultHeaders} from '../../../utils'
 
-const defaultHeader = new Headers();
-defaultHeader.append('Authorization', 'boohoo43');
-defaultHeader.append('Content-Type', 'application/json');
-defaultHeader.append('Accept', 'application/json');
+const headers = defaultHeaders()
+const BASE_URL = process.env.REACT_APP_BASE_URL
 
 const createCommentSuccess = comment => ({
   type: CREATE_COMMENT_SUCCESS,
@@ -17,7 +16,7 @@ const updateCommentSuccess = comment => ({
 
 const createComment = (params, update) => {
   return dispatch => {
-    let url = !update ? 'http://localhost:3001/comments' : `http://localhost:3001/comments/${params.id}`;
+    let url = !update ? `${BASE_URL}/comments` : `${BASE_URL}/comments/${params.id}`;
     let method = !update ? 'POST' : 'PUT';
     let body = params;
 
@@ -30,7 +29,7 @@ const createComment = (params, update) => {
 
     let requestData = {
       method: method,
-      headers: defaultHeader,
+      headers: headers,
       body: JSON.stringify(body)
     };
     let request = new Request(url, requestData);
