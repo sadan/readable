@@ -3,7 +3,7 @@ import { Row, Col, Clearfix, Media, Glyphicon } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { fetchPostDetail, postVote, deletePost } from './actions';
+import { fetchPostDetail, postVote } from './actions';
 import { convertDate } from '../../utils';
 import CommentsList from '../Comment/List/CommentsList';
 import CreateComment from '../Comment/Create/Create';
@@ -11,31 +11,18 @@ import isEmpty from 'lodash/isEmpty';
 import { Redirect } from 'react-router-dom';
 
 class PostDetail extends Component {
-<<<<<<< Updated upstream
-=======
-<<<<<<< Updated upstream
-=======
->>>>>>> Stashed changes
   constructor(props) {
     super(props);
 
     this.state = {
-<<<<<<< Updated upstream
-      deleted: false
-=======
       deleted: false,
       exists: true,
->>>>>>> Stashed changes
     };
 
     this.voteHandler = this.voteHandler.bind(this);
     this.deleteHandler = this.deleteHandler.bind(this);
   }
 
-<<<<<<< Updated upstream
-=======
->>>>>>> Stashed changes
->>>>>>> Stashed changes
   componentDidMount() {
     let { postId, fetchPostDetail } = this.props;
 
@@ -51,35 +38,13 @@ class PostDetail extends Component {
     postVote(postId, e.target.id);
   }
   
-  deleteHandler(postId) {
-    let { deletePost } = this.props;
-
-    deletePost(postId)
-      .then(deleted => this.setState({ deleted }));
-  }
-
   render() {
     let {post} = this.props;
-<<<<<<< Updated upstream
-    let { deleted } = this.state;
-    console.log(deleted);
-
-    if(isEmpty(post)) return null; 
-    if(deleted) return <Redirect to='/' />;
-    
-=======
-<<<<<<< Updated upstream
-
-    if (isEmpty(post)) return null;
-
-=======
     let { deleted, exists } = this.state;
 
     if(!exists) return <Redirect to='/404' />; 
     if(deleted) return <Redirect to='/' />;
     
->>>>>>> Stashed changes
->>>>>>> Stashed changes
     return (
       <div>
         <Row >
@@ -126,12 +91,6 @@ class PostDetail extends Component {
                     pathname: '/posts/create',
                     state: { post: post }
                   }} className='edit-btn'>Edit</Link>
-                  <span style={{color: '#a0a0a0'}}> | </span>
-                  <span onClick={() => this.deleteHandler(post.id)} className='edit-btn'>Delete</span>
-                  <span style={{color: '#a0a0a0'}}> | </span>
-                  <Link to={{
-                    pathname: '/posts/create'
-                  }} className='edit-btn'>New Post</Link>
                 </Col>
               </Row>
             </div>
@@ -151,8 +110,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   fetchPostDetail,
-  postVote,
-  deletePost
+  postVote
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostDetail);
