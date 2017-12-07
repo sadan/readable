@@ -2,7 +2,7 @@ import { initialState } from "../../../initialState/initialState";
 import { 
   POST_DETAIL_RECEIVED,
   POST_VOTE_SUCCESS
-} from "./constants";
+} from '../../../utils/constants';
 
 const postDetailreducer = (state = initialState.postDetail, action) => {
   switch(action.type) {

@@ -1,11 +1,16 @@
 import { initialState } from '../../../initialState/initialState';
-import { POST_COMMENTS_RECEIVED, DELETE_COMMENT_SUCCESS, CREATE_COMMENT_SUCCESS, UPDATE_COMMENT_SUCCESS } from './constants';
+import { 
+  POST_COMMENTS_RECEIVED, 
+  DELETE_COMMENT_SUCCESS, 
+  CREATE_COMMENT_SUCCESS, 
+  UPDATE_COMMENT_SUCCESS 
+} from '../../../utils/constants';
 
 const postCommentsReducer = (state = initialState.postComments, action) => {
   switch(action.type) {
     case POST_COMMENTS_RECEIVED:
       return Object.assign(
-        [], 
+        [],
         state, 
         action.comments
       );

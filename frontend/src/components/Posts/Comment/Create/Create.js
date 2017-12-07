@@ -3,7 +3,7 @@ import { Form, FormGroup, InputGroup, FormControl, Button, Col, Row, ControlLabe
 import uuidv1 from 'uuid/v1';
 import { connect } from 'react-redux';
 
-import { createComment } from './actions';
+import { _createUpdateComment } from './actions';
 import CommentDetail from '../Detail/CommentDetail';
 
 class CreateComment extends Component {
@@ -43,11 +43,11 @@ class CreateComment extends Component {
   }
 
   submitHandler(e) {
-    let { createComment, postId } = this.props;
+    let { _createUpdateComment, postId } = this.props;
     e.preventDefault();
 
     let {comment, update} = this.state;
-    createComment(comment, update);
+    _createUpdateComment(comment, update);
 
     if (!update) {
       comment = {
@@ -116,7 +116,7 @@ class CreateComment extends Component {
 }
 
 let mapDispatchToProps = {
-  createComment
+  _createUpdateComment
 }
 
 export default connect(null, mapDispatchToProps)(CreateComment);

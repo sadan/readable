@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Row, Col, Media, Glyphicon } from 'react-bootstrap';
-import { convertDate } from '../../../utils';
+import { convertDate } from '../../../../utils/helpers';
 
-import { commentVote, deleteComment } from './actions';
+import { _commentVote, _deleteComment } from './actions';
 import { connect } from 'react-redux';
 import CreateComment from '../Create/Create';
 
@@ -20,9 +20,9 @@ class CommentDetail extends Component {
   }
 
   voteHandler(commentId, e) {
-    let { commentVote } = this.props;
+    let { _commentVote } = this.props;
 
-    commentVote(commentId, e.target.id);
+    _commentVote(commentId, e.target.id);
   }
 
   editHandler() {
@@ -30,9 +30,9 @@ class CommentDetail extends Component {
   }
 
   deleteHandler(commentId) {
-    let { deleteComment } = this.props;
+    let { _deleteComment } = this.props;
 
-    deleteComment(commentId);
+    _deleteComment(commentId);
   }
 
   render() {
@@ -79,4 +79,4 @@ class CommentDetail extends Component {
   }
 }
 
-export default connect(null, {commentVote, deleteComment})(CommentDetail);
+export default connect(null, {_commentVote, _deleteComment})(CommentDetail);

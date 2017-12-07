@@ -1,5 +1,5 @@
-import { initialState } from '../../../initialState/initialState';
-import { CATEGORIES_RECEIVED } from './constants';
+import { initialState } from '../../initialState/initialState';
+import { CATEGORIES_RECEIVED } from '../../utils/constants';
 
 const categoriesReducer = (state = initialState.categories, action) => {
   switch(action.type) {

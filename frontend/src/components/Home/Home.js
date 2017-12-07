@@ -3,9 +3,9 @@ import { Row, Col, Nav, NavItem, Panel, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 
-import CategoriesList from './CategoriesList/CategoriesList';
-import { fetchPosts, setSelectedPost } from './actions';
-import { convertDate, sortByDate, sortByScore } from '../utils';
+import CategoriesList from '../CategoriesList/CategoriesList';
+import { getPosts, setSelectedPost } from './actions';
+import { convertDate, sortByDate, sortByScore } from '../../utils/helpers';
 
 class Home extends Component {
   constructor(props) {
@@ -19,9 +19,9 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    const { fetchPosts } = this.props;
+    const { getPosts } = this.props;
 
-    fetchPosts();
+    getPosts();
   }
 
   componentWillReceiveProps(props) {
@@ -110,7 +110,7 @@ let mapStateToProps = state => ({
 });
 
 let mapDispatchToProps = dispatch => ({
-  fetchPosts: () => dispatch(fetchPosts()), 
+  getPosts: () => dispatch(getPosts()), 
   setSelected: (postId) => dispatch(setSelectedPost(postId))
 });
 

@@ -3,11 +3,11 @@ import { Row, Col, Clearfix, Media, Glyphicon } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { fetchPostDetail, postVote, deletePost } from './actions';
-import { convertDate } from '../../utils';
+import { getPostDetail, savePostVote } from './actions';
+import { convertDate } from '../../../utils/helpers';
+import { deletePost } from '../../../utils/api';
 import CommentsList from '../Comment/List/CommentsList';
 import CreateComment from '../Comment/Create/Create';
-import isEmpty from 'lodash/isEmpty';
 import { Redirect } from 'react-router-dom';
 
 class PostDetail extends Component {
@@ -25,23 +25,21 @@ class PostDetail extends Component {
   }
 
   componentDidMount() {
-    let { postId, fetchPostDetail } = this.props;
+    let { postId, getPostDetail } = this.props;
 
     postId = postId ? postId : this.props.match.params.id;
 
-    fetchPostDetail(postId)
+    getPostDetail(postId)
       .then((exists) => this.setState(() => ({ exists, postId })))
   }
 
   voteHandler(postId, e) {
-    let { postVote } = this.props;
+    let { savePostVote } = this.props;
 
-    postVote(postId, e.target.id);
+    savePostVote(postId, e.target.id);
   }
   
   deleteHandler(postId) {
-    let { deletePost } = this.props;
-
     deletePost(postId)
       .then(deleted => this.setState({ deleted }));
   }
@@ -124,9 +122,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  fetchPostDetail,
-  postVote,
-  deletePost
+  getPostDetail,
+  savePostVote
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostDetail);

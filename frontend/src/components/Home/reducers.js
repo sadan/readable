@@ -1,5 +1,5 @@
 import { initialState } from '../../initialState/initialState';
-import { POSTS_RECEIVED, SET_SELECTED_POST } from './constants';
+import { POSTS_RECEIVED, SET_SELECTED_POST } from '../../utils/constants';
 
 const postsReducer = (state = initialState.posts, action) => {
   switch(action.type) {

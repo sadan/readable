@@ -6,8 +6,8 @@ import { connect } from 'react-redux';
 import {Redirect} from 'react-router-dom';
 import isEmpty from 'lodash/isEmpty';
 
-import { fetchCategories } from '../../Home/CategoriesList/actions';
-import { createPost } from './actions';
+import { _fetchCategories } from '../../CategoriesList/actions';
+import { _createUpdatePost } from './actions';
 
 class CreatePost extends Component {
   constructor(props) {
@@ -31,9 +31,9 @@ class CreatePost extends Component {
   }
 
   componentDidMount() {
-    const { fetchCategories, categories, location } = this.props;
+    const { _fetchCategories, categories, location } = this.props;
 
-    if (!categories.length) fetchCategories();
+    if (!categories.length) _fetchCategories();
     if (!isEmpty(location.state)) {
       this.setState({ post: location.state.post, update: true })
     }
@@ -49,12 +49,12 @@ class CreatePost extends Component {
   }
 
   onSubmit(e) {
-    let { createPost } = this.props;
+    let { _createUpdatePost } = this.props;
     let {post, update} = this.state;
 
     e.preventDefault();
 
-    createPost(post, update)
+    _createUpdatePost(post, update)
       .then(created => {
         if(created) {
           this.setState({ created });
@@ -159,7 +159,7 @@ let mapStateToProps = state => ({
 });
 
 let mapDispatchToProps = {
-  fetchCategories,
-  createPost
+  _fetchCategories,
+  _createUpdatePost
 };
 export default connect(mapStateToProps, mapDispatchToProps)(CreatePost);

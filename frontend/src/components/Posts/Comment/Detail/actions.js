@@ -1,60 +1,26 @@
 import {
   UPDATE_COMMENT_SUCCESS, DELETE_COMMENT_SUCCESS
-} from '../constants';
-import {defaultHeaders} from '../../../utils'
+} from '../../../../utils/constants'
+import { commentVote, deleteComment } from '../../../../utils/api'
 
-const headers = defaultHeaders()
-const BASE_URL = process.env.REACT_APP_BASE_URL
-
-const commentVoteSuccess = comment => ({
+const _commentVoteSuccess = comment => ({
   type: UPDATE_COMMENT_SUCCESS,
   comment
 });
 
-const deleteCommentSuccess = comment => ({
+const _deleteCommentSuccess = comment => ({
   type: DELETE_COMMENT_SUCCESS,
   comment
 });
 
-const commentVote = (commentId, vote) => {
-  return dispatch => {
-    let url = `${BASE_URL}/comments/${commentId}/`;
-    
-    let requestData = {
-      method: 'POST',
-      headers: headers,
-      body: JSON.stringify({option: vote})
-    }
+const _commentVote = (commentId, vote) => {
+  return dispatch => commentVote(commentId, vote)
+      .then(comment => dispatch(_commentVoteSuccess(comment)))
+}
 
-    let request = new Request(url, requestData);
-
-    return (
-      fetch(request)
-        .then(res => res.json())
-        .then(data => dispatch(commentVoteSuccess(data)))
-        .catch(err => console.log(err))
-    );
-  };
+const _deleteComment = (commentId) => {
+  return dispatch => deleteComment(commentId)
+      .then(comment => dispatch(_deleteCommentSuccess(comment)))
 };
 
-const deleteComment = (commentId) => {
-  return dispatch => {
-    let url = `${BASE_URL}/comments/${commentId}/`;
-    
-    let requestData = {
-      method: 'DELETE',
-      headers: headers
-    };
-
-    let request = new Request(url, requestData);
-
-    return (
-      fetch(request)
-        .then(res => res.json())
-        .then(data => dispatch(deleteCommentSuccess(data)))
-        .catch(err => console.log(err))
-    );
-  };
-};
-
-export { commentVote, deleteComment };
+export { _commentVote, _deleteComment };

@@ -1,7 +1,5 @@
-import { POSTS_RECEIVED, SET_SELECTED_POST } from './constants';
-
-const defaultHeader = {Authorization: process.env.REACT_APP_AUTHORIZATION};
-const BASE_URL = process.env.REACT_APP_BASE_URL
+import { POSTS_RECEIVED, SET_SELECTED_POST } from '../../utils/constants';
+import { fetchPosts } from '../../utils/api';
 
 const postsReceived = posts => ({
   type: POSTS_RECEIVED,
@@ -11,19 +9,14 @@ const postsReceived = posts => ({
 const setSelectedPost = postId => ({
   type: SET_SELECTED_POST,
   postId
-});
+})
 
-const fetchPosts = () => {
+const getPosts = () => {
   return dispatch => {
-    let url = `${BASE_URL}/posts`;
-    
-    return (
-      fetch(url, {headers: defaultHeader})
-        .then(res => res.json())
-        .then(data => dispatch(postsReceived(data)))
-        .catch(err => console.log(err))
-    );
+    fetchPosts()
+      .then(data => Promise.all(data))
+      .then(posts => dispatch(postsReceived(posts)))
   };
 };
 
-export { fetchPosts, setSelectedPost };
+export { getPosts, setSelectedPost };
