@@ -29,6 +29,10 @@
   margin-bottom: 20px;
 }
 
+.comments-count {
+  color: #a0a0a0
+}
+
 /* CategoriesList  */
 .categories-box {
   padding: 15px 15px 10px;

@@ -15,10 +15,14 @@ const _updateCommentSuccess = comment => ({
 });
 
 const _createUpdateComment = (params, update) => {
-  return dispatch => createUpdateComment(params, update)
-      .then(comment => update 
-        ? dispatch(_updateCommentSuccess(comment)) 
-        : dispatch(_createCommentSuccess(comment)))
+  return dispatch => {
+    return createUpdateComment(params, update)
+      .then(comment => {
+        update
+        ? dispatch(_updateCommentSuccess(comment))
+        : dispatch(_createCommentSuccess(comment))
+      })
+  }
 };
 
 export { _createUpdateComment };

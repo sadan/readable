@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Row, Col, Nav, NavItem, Panel, Button } from 'react-bootstrap';
+import { Row, Col, Nav, NavItem, Panel, Button, Glyphicon, Media } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 
 import CategoriesList from '../CategoriesList/CategoriesList';
-import { getPosts, setSelectedPost } from './actions';
+import { getPosts, setSelectedPost, _postsListVote } from './actions';
 import { convertDate, sortByDate, sortByScore } from '../../utils/helpers';
+import { deletePost } from '../../utils/api';
 
 class Home extends Component {
   constructor(props) {
@@ -37,6 +38,19 @@ class Home extends Component {
     this.setState({ sort });
   }
 
+  deleteHandler(postId) {
+    const { getPosts } = this.props;
+
+    deletePost(postId)
+      .then(deleted => getPosts())
+  }
+
+  voteHandler(postId, e) {
+    let { vote } = this.props
+
+    vote(postId, e.target.id)
+  }
+
   render() {
     let { category, sort } = this.state;
     let { setSelected } = this.props;
@@ -60,25 +74,52 @@ class Home extends Component {
                 <Panel key={post.id}
                   footer={
                     <div>
-                      <span>Votes: {post.voteScore}</span>
+                      <Link to={{
+                        pathname: '/posts/create',
+                        state: { post: post }
+                      }} className='edit-btn'>Edit</Link>
+                      <span style={{color: '#a0a0a0'}}> | </span>
+                      <span onClick={() => this.deleteHandler(post.id)} className='edit-btn'>Delete</span>
                       <div className='post-footer'>
                         <span>
-                          <strong>created at</strong> {convertDate(post.timestamp)} <strong>by</strong> {post.author}
+                          {convertDate(post.timestamp)} <strong>by</strong> {post.author}
                         </span>
                       </div>
                     </div>
                   }
                 >
-                  <h3 className='post-title'>
-                    <Link 
-                      onClick={() => setSelected(post.id)}
-                      to={`/posts/${post.category}/${post.id}`}>
-                      {post.title}
-                    </Link>
-                  </h3>
-                  <span className='post-category'>
-                    {post.category}
-                  </span>
+                  <Media>
+                    <Media.Left style={{width: '8%'}}>
+                      <div style={{display: 'inline-grid'}}>
+                        <Glyphicon glyph='chevron-up'
+                          className='vote-icon'
+                          id='upVote'
+                          onClick={e => this.voteHandler(post.id, e)} />
+                        <span className='vote-score'>{post.voteScore}</span>
+                        <Glyphicon glyph='chevron-down'
+                          className='vote-icon' 
+                          id='downVote'
+                          onClick={e => this.voteHandler(post.id, e)}/>
+                        </div>
+                    </Media.Left>
+                    <Media.Body>
+                      <h3 className='post-title'>
+                        <Link 
+                          onClick={() => setSelected(post.id)}
+                          to={`/posts/${post.category}/${post.id}`}>
+                          {post.title}
+                        </Link>
+                      </h3>
+                      <div style={{ verticalAlign: 'bottom', marginTop: 20}}>
+                        <span style={{display: 'inline'}} className='post-category'>
+                          {post.category}
+                        </span>
+                        <div style={{ color: '#a0a0a0', display: 'inline', marginLeft: '10px', verticalAlign: 'middle' }}>
+                          <Glyphicon glyph='comment' /> {post.commentsCount}
+                        </div>
+                      </div>
+                    </Media.Body>
+                  </Media>
                 </Panel>
               ))
               : null
@@ -111,7 +152,8 @@ let mapStateToProps = state => ({
 
 let mapDispatchToProps = dispatch => ({
   getPosts: () => dispatch(getPosts()), 
-  setSelected: (postId) => dispatch(setSelectedPost(postId))
+  setSelected: (postId) => dispatch(setSelectedPost(postId)),
+  vote: (postId, vote) => dispatch(_postsListVote(postId, vote))
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home));

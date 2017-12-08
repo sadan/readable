@@ -5,27 +5,27 @@ import {
 import isEmpty from 'lodash/isEmpty';
 import { fetchPostDetail, postVote } from '../../../utils/api';
 
-const getPostDetailSuccess = post => ({
+const _fetchPostDetailSuccess = post => ({
   type: POST_DETAIL_RECEIVED,
   post
 });
 
-const savePostVoteSuccess = score => ({
+const _postVoteSuccess = score => ({
   type: POST_VOTE_SUCCESS,
   score
 });
 
-const savePostVote = (postId, vote) => {
+const _postVote = (postId, vote) => {
   return dispatch => 
     postVote(postId, vote)
-      .then(post => dispatch(savePostVoteSuccess(post.voteScore)))
+      .then(post => dispatch(_postVoteSuccess(post.voteScore)))
 };
 
-const getPostDetail = (postId) => {
+const _fetchPostDetail = (postId) => {
   return dispatch =>
     fetchPostDetail(postId)
       .then(post => {
-        dispatch(getPostDetailSuccess(post));
+        dispatch(_fetchPostDetailSuccess(post));
   
         // check if post exists/deleted
         if(isEmpty(post)) {
@@ -35,4 +35,4 @@ const getPostDetail = (postId) => {
       })
 };
 
-export { getPostDetail, savePostVote };
+export { _fetchPostDetail, _postVote };

@@ -1,5 +1,15 @@
 import React, { Component } from 'react';
-import { Form, FormGroup, InputGroup, FormControl, Button, Col, Row, ControlLabel } from 'react-bootstrap';
+import { 
+  Form, 
+  FormGroup, 
+  InputGroup, 
+  FormControl, 
+  Button, 
+  Col, 
+  Row, 
+  ControlLabel,
+  Glyphicon
+} from 'react-bootstrap';
 import uuidv1 from 'uuid/v1';
 import { connect } from 'react-redux';
 
@@ -74,9 +84,7 @@ class CreateComment extends Component {
     return (
       <Row>
         <Col md={12}>
-          <Col md={12}  style={{
-            borderBottom: '1px solid #e4e6e8', marginBottom: '30px'
-          }}>
+          <Col md={12}>
             {
               !displayForm 
               ? 

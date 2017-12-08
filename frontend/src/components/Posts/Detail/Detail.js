@@ -3,7 +3,7 @@ import { Row, Col, Clearfix, Media, Glyphicon } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { getPostDetail, savePostVote } from './actions';
+import { _fetchPostDetail, _postVote } from './actions';
 import { convertDate } from '../../../utils/helpers';
 import { deletePost } from '../../../utils/api';
 import CommentsList from '../Comment/List/CommentsList';
@@ -25,18 +25,18 @@ class PostDetail extends Component {
   }
 
   componentDidMount() {
-    let { postId, getPostDetail } = this.props;
+    let { postId, _fetchPostDetail } = this.props;
 
     postId = postId ? postId : this.props.match.params.id;
 
-    getPostDetail(postId)
+    _fetchPostDetail(postId)
       .then((exists) => this.setState(() => ({ exists, postId })))
   }
 
   voteHandler(postId, e) {
-    let { savePostVote } = this.props;
+    let { _postVote } = this.props;
 
-    savePostVote(postId, e.target.id);
+    _postVote(postId, e.target.id);
   }
   
   deleteHandler(postId) {
@@ -45,7 +45,7 @@ class PostDetail extends Component {
   }
 
   render() {
-    let { post } = this.props;
+    let { post, commentsCount } = this.props;
     let { deleted, exists, postId } = this.state;
 
     if(!postId) return null
@@ -91,9 +91,16 @@ class PostDetail extends Component {
                 <Col md={3}>
                   <p><span className='post-detail-heading'>Posted by</span> {post.author}</p>
                   <p><span className='post-detail-heading'>Posted at</span> {convertDate(post.timestamp)}</p>
-                  <span style={{marginBottom: '10px'}} className='post-category'>
-                    {post.category}
-                  </span>
+
+                  <div style={{ verticalAlign: 'bottom', marginBottom: 10 }}>
+                    <span style={{display: 'inline'}} className='post-category'>
+                      {post.category}
+                    </span>
+                    <div style={{ color: '#a0a0a0', display: 'inline', marginLeft: '20px', verticalAlign: 'middle' }}>
+                      <Glyphicon glyph='comment' /> {commentsCount}
+                    </div>
+                  </div>
+
                   <Link to={{
                     pathname: '/posts/create',
                     state: { post: post }
@@ -109,8 +116,8 @@ class PostDetail extends Component {
             </div>
           </Col>
         </Row>
-        <CommentsList postId={post.id} />
         <CreateComment postId={post.id} />
+        <CommentsList postId={post.id} />
       </div>
     );
   }
@@ -118,12 +125,13 @@ class PostDetail extends Component {
 
 const mapStateToProps = state => ({
   postId: state.posts.selectedPostId,
-  post: state.postDetail
+  post: state.postDetail,
+  commentsCount: state.postComments.length
 });
 
 const mapDispatchToProps = {
-  getPostDetail,
-  savePostVote
+  _fetchPostDetail,
+  _postVote
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostDetail);

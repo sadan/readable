@@ -1,5 +1,5 @@
-import { POSTS_RECEIVED, SET_SELECTED_POST } from '../../utils/constants';
-import { fetchPosts } from '../../utils/api';
+import { POSTS_RECEIVED, SET_SELECTED_POST, POSTS_LIST_VOTE_SUCCESS } from '../../utils/constants';
+import { fetchPosts, postVote } from '../../utils/api';
 
 const postsReceived = posts => ({
   type: POSTS_RECEIVED,
@@ -11,6 +11,18 @@ const setSelectedPost = postId => ({
   postId
 })
 
+const _postsListVoteSuccess = post => ({
+  type: POSTS_LIST_VOTE_SUCCESS,
+  post
+})
+
+const _postsListVote = (postId, vote) => {
+  return dispatch => {
+    postVote(postId, vote)
+      .then(post => dispatch(_postsListVoteSuccess(post)))
+  }
+}
+
 const getPosts = () => {
   return dispatch => {
     fetchPosts()
@@ -19,4 +31,4 @@ const getPosts = () => {
   };
 };
 
-export { getPosts, setSelectedPost };
+export { getPosts, setSelectedPost, _postsListVote };

@@ -18,7 +18,7 @@ class Comment extends Component {
   componentWillMount() {
     let { _fetchPostComments } = this.props;
 
-    _fetchPostComments(this.state.postId);
+    _fetchPostComments(this.state.postId)
   }
 
   render() {
@@ -29,8 +29,8 @@ class Comment extends Component {
 
     return(
       <div>
-        {comments.map((comment) => (
-          <CommentDetail comment={comment}/>
+        {comments.map((comment, index) => (
+          <CommentDetail key={index} comment={comment}/>
         ))}
       </div>
     );

@@ -27,7 +27,7 @@ export const fetchPosts = () => {
         return posts.map(
           post => fetchPostComments(post.id)
             .then(comments => ({
-              comments: comments, 
+              commentsCount: comments.length, 
               ...post
             }))
         )
