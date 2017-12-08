@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 
 import CategoriesList from '../CategoriesList/CategoriesList';
-import { getPosts, setSelectedPost, _postsListVote } from './actions';
+import { _fetchPosts, _setSelectedPost, _postsListVote } from './actions';
 import { convertDate, sortByDate, sortByScore } from '../../utils/helpers';
 import { deletePost } from '../../utils/api';
 
@@ -151,8 +151,8 @@ let mapStateToProps = state => ({
 });
 
 let mapDispatchToProps = dispatch => ({
-  getPosts: () => dispatch(getPosts()), 
-  setSelected: (postId) => dispatch(setSelectedPost(postId)),
+  getPosts: () => dispatch(_fetchPosts()), 
+  setSelected: (postId) => dispatch(_setSelectedPost(postId)),
   vote: (postId, vote) => dispatch(_postsListVote(postId, vote))
 });
 

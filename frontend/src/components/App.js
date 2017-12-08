@@ -8,34 +8,36 @@ import Home from './Home/Home';
 import Posts from './Posts/Posts';
 import NotFound from '../components/common/NotFound';
 
-function App () {
-  return (
-    <div>
-      <Topbar />
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <Topbar />
 
-      <Grid>
-        <Switch>
-          <Route 
-            path='/'
-            exact
-            component={Home}
-          />
-          <Route
-            path='/category/:category'
-            component={Home}
-          />
-          <Route
-            path='/posts'
-            component={Posts}
-          />
-          <Route
-            path='/404'
-            component={NotFound}
-          />
-        </Switch>
-      </Grid>
-    </div>
-  );
+        <Grid>
+          <Switch>
+            <Route 
+              path='/'
+              exact
+              component={Home}
+            />
+            <Route
+              path='/category/:category'
+              component={Home}
+            />
+            <Route
+              path='/posts'
+              component={Posts}
+            />
+            <Route
+              path='/404'
+              component={NotFound}
+            />
+          </Switch>
+        </Grid>
+      </div>
+    );
+  }
 }
 
 export default withRouter(App);

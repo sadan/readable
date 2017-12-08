@@ -6,19 +6,23 @@ import PostDetail from './Detail/Detail';
 import Home from '../Home/Home';
 import CreatePost from './Create/Create';
 
-export default function Posts (props) {
-  let match = props.match;
+class Posts extends Component {
+  render() {
+    let match = this.props.match;
 
-  return (
-    <div>
-      <Route 
-        path={match.url + '/create'} 
-        component={CreatePost}
-      />
-      <Route
-        path={match.url + '/:category/:id'}
-        component={PostDetail}
-      />
-    </div>
-  );
+    return (
+      <div>
+        <Route 
+          path={match.url + '/create'}
+          component={CreatePost}
+        />
+        <Route
+          path={match.url + '/:category/:id'}
+          component={PostDetail}
+        />
+      </div>
+    );
+  }
 }
+
+export default withRouter(Posts);

@@ -6,7 +6,7 @@ const postsReceived = posts => ({
   posts
 });
 
-const setSelectedPost = postId => ({
+const _setSelectedPost = postId => ({
   type: SET_SELECTED_POST,
   postId
 })
@@ -23,7 +23,7 @@ const _postsListVote = (postId, vote) => {
   }
 }
 
-const getPosts = () => {
+const _fetchPosts = () => {
   return dispatch => {
     fetchPosts()
       .then(data => Promise.all(data))
@@ -31,4 +31,4 @@ const getPosts = () => {
   };
 };
 
-export { getPosts, setSelectedPost, _postsListVote };
+export { _fetchPosts, _setSelectedPost, _postsListVote };
