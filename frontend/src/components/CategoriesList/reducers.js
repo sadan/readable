@@ -6,10 +6,7 @@ const categoriesReducer = (state = initialState.categories, action) => {
     case CATEGORIES_RECEIVED:
       return {
         ...state,
-        list:[
-          ...state.list,
-          ...action.categories
-        ]
+        list: action.categories
       };
     
     default:
