@@ -7,13 +7,16 @@ import {
 const postDetailreducer = (state = initialState.postDetail, action) => {
   switch(action.type) {
     case POST_DETAIL_RECEIVED:
-      return Object.assign({}, state, action.post);
+      return {
+        ...state,
+        ...action.post
+      };
 
     case POST_VOTE_SUCCESS:
-      return Object.assign({}, state, {
-        ...state.detail,
+      return {
+        ...state,
         voteScore: action.score
-      })
+      };
     
     default:
       return state;

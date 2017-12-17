@@ -4,7 +4,13 @@ import { CATEGORIES_RECEIVED } from '../../utils/constants';
 const categoriesReducer = (state = initialState.categories, action) => {
   switch(action.type) {
     case CATEGORIES_RECEIVED:
-      return Object.assign({}, state, {list: action.categories});
+      return {
+        ...state,
+        list:[
+          ...state.list,
+          ...action.categories
+        ]
+      };
     
     default:
       return state;

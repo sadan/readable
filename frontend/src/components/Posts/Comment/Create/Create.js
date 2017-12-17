@@ -2,13 +2,10 @@ import React, { Component } from 'react';
 import { 
   Form, 
   FormGroup, 
-  InputGroup, 
   FormControl, 
   Button, 
   Col, 
   Row, 
-  ControlLabel,
-  Glyphicon
 } from 'react-bootstrap';
 import uuidv1 from 'uuid/v1';
 import { connect } from 'react-redux';

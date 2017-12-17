@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Navbar } from 'react-bootstrap';
 
-export default function Topbar () {
+const Topbar = () => {
   return (
     <div>
       <Navbar>
@@ -14,3 +14,5 @@ export default function Topbar () {
     </div>
   )
 }
+
+export default Topbar

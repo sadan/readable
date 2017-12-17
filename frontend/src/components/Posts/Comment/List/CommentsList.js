@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Row, Col, Media, Glyphicon } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 import { _fetchPostComments } from './actions';

@@ -4,10 +4,19 @@ import { POSTS_RECEIVED, SET_SELECTED_POST, POSTS_LIST_VOTE_SUCCESS } from '../.
 const postsReducer = (state = initialState.posts, action) => {
   switch(action.type) {
     case POSTS_RECEIVED:
-      return Object.assign({}, state, {list: action.posts});
+      return {
+        ...state,
+        list: [
+          ...state.list,
+          ...action.posts
+        ]
+      };
 
     case SET_SELECTED_POST:
-      return Object.assign({}, state, {selectedPostId: action.postId});
+      return {
+        ...state,
+        selectedPostId: action.post
+      };
 
     case POSTS_LIST_VOTE_SUCCESS:
       return {

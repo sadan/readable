@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function NotFound() {
+const NotFound = () => {
   return (
     <div style={{textAlign: 'center'}}>
       <p style={{fontSize: '24px', color: 'gray', margin: 'auto'}}>Not Found</p>
@@ -8,3 +8,5 @@ export default function NotFound() {
     </div>
   )
 }
+
+export default NotFound

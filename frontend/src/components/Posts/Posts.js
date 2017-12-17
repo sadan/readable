@@ -1,28 +1,24 @@
-import React, { Component } from 'react';
-// import { withRouter } from 'react-router';
+import React from 'react';
 import { Route, withRouter } from 'react-router-dom';
 
 import PostDetail from './Detail/Detail';
-import Home from '../Home/Home';
 import CreatePost from './Create/Create';
 
-class Posts extends Component {
-  render() {
-    let match = this.props.match;
+const Posts = (props) => {
+  let match = props.match;
 
-    return (
-      <div>
-        <Route 
-          path={match.url + '/create'}
-          component={CreatePost}
-        />
-        <Route
-          path={match.url + '/:category/:id'}
-          component={PostDetail}
-        />
-      </div>
-    );
-  }
+  return (
+    <div>
+      <Route 
+        path={match.url + '/create'}
+        component={CreatePost}
+      />
+      <Route
+        path={match.url + '/:category/:id'}
+        component={PostDetail}
+      />
+    </div>
+  );
 }
 
-export default withRouter(Posts);
+export default withRouter(Posts)
